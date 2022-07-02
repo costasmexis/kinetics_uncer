@@ -57,7 +57,7 @@ X_test.index = x_test.index
 
 
 
-def main():
+def main(index_GP):
 
 	print("Number of rows following these rules:", len(index_GP))
 
@@ -70,24 +70,39 @@ def main():
 
 
 
-'''
-Rule:
+def catboost():
 
-	if (Gamma_GLUDC <= -1.277) and (sigma_km_product1_ICDHxm > 0.056) 
-	and (sigma_km_product2_GS > -0.802) and (sigma_km_substrate2_ILETAm <= 1.365) 
-	and (sigma_km_substrate1_ADK1 <= 1.551) then class: 1 (proba: 100.0%) | based on 25 samples
-
-'''
-
-index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
+	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
                   & (X_test['sigma_km_product1_ICDHxm'] > 0.056)
                   & (X_test['sigma_km_product2_GS'] > -0.802)
                   & (X_test['sigma_km_substrate2_ILETAm'] <= 1.365)
                   & (X_test['sigma_km_substrate1_ADK1'] <= 1.551)].index
+	
+	return index_GP              
 
 
 
+def logreg():
 
-main()
+	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
+                  & (X_test['sigma_km_product1_CHORS'] <= -1.075)].index
 
 
+	return index_GP
+
+
+def svc():
+
+	index_GP = X_test[(X_test['Gamma_H2Ot'] > -0.2) 
+                  & (X_test['sigma_km_product3_GS'] > -1.203 )
+                  & (X_test['sigma_km_product1_2OXOADPTm'] <= 1.008)
+                  & (X_test['Gamma_ILETA'] > -1.26)].index
+	
+	return index_GP              
+
+'''
+Call main function to print results
+'''
+
+index_GP = svc()
+main(index_GP)

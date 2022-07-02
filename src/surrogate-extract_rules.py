@@ -13,10 +13,13 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.metrics import roc_auc_score, accuracy_score, f1_score, precision_score, recall_score, confusion_matrix
 from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import train_test_split
 
 from catboost import CatBoostClassifier
 from sklearn import tree
 from sklearn.tree import _tree
+
+from imblearn.over_sampling import SMOTE
 
 import xgboost as xgb
 
@@ -145,7 +148,13 @@ def extract_rules(surrogate):
     return rules
 
 
+def rules_to_txt(rules, filename):
 
+    # open file in write mode
+    with open(r'../rules/'+filename, 'w') as fp:
+        for item in rules:
+            # write each item on a new line
+            fp.write("%s\n" % item)
 
 '''
 
@@ -154,8 +163,6 @@ LOAD FILES
 '''
 df = pd.read_csv('../data/Parameters_90%stability.csv')
 df = df.drop(['Unnamed: 0'], axis = 1)
-
-from sklearn.model_selection import train_test_split
 
 # Load X and Y 
 X = df.drop(['Stability'], axis = 1)
@@ -182,30 +189,52 @@ X_test = pd.DataFrame(X_test, columns=x_test.columns)
 X_test.index = x_test.index
 
 
+'''
 
+SMOTE
 
+'''
+def smote(X, y):
+    sm = SMOTE(random_state=SEED)
+    X_res, y_res = sm.fit_resample(X, y)
 
+    return X_res, y_res
 
 '''
 
 MAIN FUNCTION
 
 '''
-filename = '../models/test 65%'
-
-catboost, y_catboost = black_box(CatBoostClassifier(random_state=SEED), 'catboost_model.sav', None)
-surrogate_catboost = surrogate(catboost) 
-rules_catboost = extract_rules(surrogate_catboost)
+filename = '../models/test_35%'
 
 
+def catboost():
+    catboost, y_catboost = black_box(CatBoostClassifier(random_state=SEED), 'catboost_model.sav', None)
+    surrogate_catboost = surrogate(catboost) 
+    rules_catboost = extract_rules(surrogate_catboost)
+    rules_to_txt(rules_catboost, 'rules_catboost.txt')
 
-def rules_to_txt(rules, filename):
 
-    # open file in write mode
-    with open(r'../rules/'+filename, 'w') as fp:
-        for item in rules:
-            # write each item on a new line
-            fp.write("%s\n" % item)
+def logreg():
+    log_reg, y_logreg = black_box(LogisticRegression(max_iter=100000), 'logreg_model.sav', None)
+    surrogate_logreg = surrogate(log_reg)
+    rules_logreg = extract_rules(surrogate_logreg)
+    rules_to_txt(rules_logreg, 'rules_logreg.txt')
+
+
+def svc():
+    param_grid_svc = {'C': [0.001, 0.005, 0.01, 0.02, 0.05, 0.08, 1, 1.5, 2, 2.5, 3, 5, 10, 12, 20, 25, 50],
+                'gamma': [0.002, 0.003, 0.004, 0.001, 0.005, 0.01, 0.05, 0.1, 0.2, 0.5],
+                'kernel': ['rbf', 'linear']
+    }
     
-rules_to_txt(rules_catboost, 'rules_catboost.txt')
+    svr, y_svr = black_box(SVC(random_state=SEED), 'svr_model.sav', param_grid_svc)
+    surrogate_svr = surrogate(svr)
+    rules_svr = extract_rules(surrogate_svr)
+    rules_to_txt(rules_svr, 'rules_svr.txt')
 
+
+
+# X_train, y_train = smote(X_train, y_train)
+
+# svc()
