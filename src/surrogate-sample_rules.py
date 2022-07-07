@@ -62,7 +62,7 @@ def main(index_GP):
 	print("Number of rows following these rules:", len(index_GP))
 
 	y_val = y_test.loc[index_GP]
-	SI_val = y_val['Stability'].value_counts()[1] / len(y_val)
+	SI_val = y_val['Stability'].value_counts()[1] / len(y_val) * 100
 	print("The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI =",round(SI_val, 4), "%")
 
 	SI_test = len(y_test[y_test['Stability']==1])/len(y_test) * 100
@@ -83,9 +83,16 @@ def catboost():
 
 
 def logreg():
+	# Simple
+	# index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
+ #                  & (X_test['sigma_km_product1_CHORS'] <= -1.075)].index
 
-	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
-                  & (X_test['sigma_km_product1_CHORS'] <= -1.075)].index
+ 	# Smote
+	index_GP = X_test[(X_test['Gamma_H2Ot'] > -0.2) 
+                  & (X_test['sigma_km_substrate1_PSERT'] <= 0.999)
+                  & (X_test['sigma_km_substrate_PGL'] > -0.725)
+                  & (X_test['sigma_km_product2_IGPS'] <= 1.59)
+                  & (X_test['sigma_km_substrate2_GK1'] <= 1.581)].index
 
 
 	return index_GP
@@ -93,16 +100,34 @@ def logreg():
 
 def svc():
 
-	index_GP = X_test[(X_test['Gamma_H2Ot'] > -0.2) 
-                  & (X_test['sigma_km_product3_GS'] > -1.203 )
-                  & (X_test['sigma_km_product1_2OXOADPTm'] <= 1.008)
-                  & (X_test['Gamma_ILETA'] > -1.26)].index
+
+	# index_GP = X_test[(X_test['Gamma_ACN_a_m'] <= -1.137) 
+ #                  & (X_test['sigma_km_substrate2_PGCD']<= 0.432 )
+ #                  & (X_test['sigma_km_substrate1_GLUDy'] > -1.1)
+ #                  & (X_test['Gamma_SSALy'] > -1.158)].index
+
+	
+	# UnderSample
+
+	index_GP = X_test[(X_test['sigma_km_product2_ALCD26xi'] > 1.183) &
+				(X_test['sigma_km_substrate_ACONTa'] <= 1.219)].index
+
+	return index_GP              
+
+
+def lightGBM():
+
+	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
+                  & (X_test['sigma_km_product1_ICDHxm'] > 0.056)
+                  & (X_test['sigma_km_product2_GS'] > -0.802)
+                  & (X_test['sigma_km_substrate2_ILETAm'] <= 1.365)
+                  & (X_test['sigma_km_substrate1_ADK1'] <= 1.551)].index
 	
 	return index_GP              
+
 
 '''
 Call main function to print results
 '''
-
 index_GP = svc()
 main(index_GP)

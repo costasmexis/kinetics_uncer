@@ -20,8 +20,10 @@ from sklearn import tree
 from sklearn.tree import _tree
 
 from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import EditedNearestNeighbours
 
 import xgboost as xgb
+import lightgbm as lgb
 
 SEED = 42
 
@@ -34,9 +36,9 @@ def get_rules(tree, feature_names, class_names):
 
     paths = []
     path = []
-    
+
     def recurse(node, path, paths):
-        
+
         if tree_.feature[node] != _tree.TREE_UNDEFINED:
             name = feature_name[node]
             threshold = tree_.threshold[node]
@@ -48,18 +50,18 @@ def get_rules(tree, feature_names, class_names):
         else:
             path += [(tree_.value[node], tree_.n_node_samples[node])]
             paths += [path]
-            
+
     recurse(0, path, paths)
 
     # sort by samples count
     samples_count = [p[-1][1] for p in paths]
     ii = list(np.argsort(samples_count))
     paths = [paths[i] for i in reversed(ii)]
-    
+
     rules = []
     for path in paths:
         rule = "if "
-        
+
         for p in path[:-1]:
             if rule != "if ":
                 rule += " and "
@@ -73,7 +75,7 @@ def get_rules(tree, feature_names, class_names):
             rule += f"class: {class_names[l]} (proba: {np.round(100.0*classes[l]/np.sum(classes),2)}%)"
         rule += f" | based on {path[-1][1]:,} samples"
         rules += [rule]
-        
+
     return rules
 
 
@@ -103,7 +105,7 @@ def tune_model(model, param_grid, n_iter, X_train, y_train):
 def black_box(model, model_name, param_grid):
 
     try:
-        
+
         # load the model from disk
         loaded_model = pickle.load(open(filename+'/'+ model_name, 'rb'))
         y_pred = loaded_model.predict(X_test)
@@ -113,9 +115,9 @@ def black_box(model, model_name, param_grid):
     except FileNotFoundError:
 
         if(param_grid == None):
-            
+
             score, y_pred = run_model(model, X_train, y_train.values.ravel(),X_test, y_test.values.ravel())
-            pickle.dump(model, open(filename+'/'+ model_name, 'wb'))   
+            pickle.dump(model, open(filename+'/'+ model_name, 'wb'))
             return model, y_pred
 
         else:
@@ -124,7 +126,7 @@ def black_box(model, model_name, param_grid):
             score, y_pred = run_model(best_model, X_train, y_train.values.ravel(),
                 X_test, y_test.values.ravel())
 
-            pickle.dump(best_model, open(filename+'/'+ model_name, 'wb'))   
+            pickle.dump(best_model, open(filename+'/'+ model_name, 'wb'))
 
             return best_model, y_pred
 
@@ -142,7 +144,7 @@ def surrogate(blackbox_model):
 
 def extract_rules(surrogate):
 
-    rules = get_rules(surrogate, feature_names=feature_names, 
+    rules = get_rules(surrogate, feature_names=feature_names,
                   class_names=class_names)
 
     return rules
@@ -164,7 +166,7 @@ LOAD FILES
 df = pd.read_csv('../data/Parameters_90%stability.csv')
 df = df.drop(['Unnamed: 0'], axis = 1)
 
-# Load X and Y 
+# Load X and Y
 X = df.drop(['Stability'], axis = 1)
 y = df['Stability']
 
@@ -191,7 +193,7 @@ X_test.index = x_test.index
 
 '''
 
-SMOTE
+SMOTE / Undersampling
 
 '''
 def smote(X, y):
@@ -199,6 +201,15 @@ def smote(X, y):
     X_res, y_res = sm.fit_resample(X, y)
 
     return X_res, y_res
+
+
+def under(X, y):
+    print("...Undersampling...")
+    undersample = EditedNearestNeighbours(n_neighbors=3)
+    X_res, y_res = undersample.fit_resample(X, y)
+
+    return X_res, y_res
+
 
 '''
 
@@ -208,33 +219,54 @@ MAIN FUNCTION
 filename = '../models/test_35%'
 
 
-def catboost():
-    catboost, y_catboost = black_box(CatBoostClassifier(random_state=SEED), 'catboost_model.sav', None)
-    surrogate_catboost = surrogate(catboost) 
+def catboost(model_name='catboost_model.sav'):
+    catboost, y_catboost = black_box(CatBoostClassifier(random_state=SEED), model_name, None)
+    surrogate_catboost = surrogate(catboost)
     rules_catboost = extract_rules(surrogate_catboost)
     rules_to_txt(rules_catboost, 'rules_catboost.txt')
 
 
-def logreg():
-    log_reg, y_logreg = black_box(LogisticRegression(max_iter=100000), 'logreg_model.sav', None)
+def logreg(model_name='logreg_model.sav'):
+    log_reg, y_logreg = black_box(LogisticRegression(max_iter=100000), model_name, None)
     surrogate_logreg = surrogate(log_reg)
     rules_logreg = extract_rules(surrogate_logreg)
     rules_to_txt(rules_logreg, 'rules_logreg.txt')
 
 
-def svc():
+def svc(model_name='svr_model.sav'):
     param_grid_svc = {'C': [0.001, 0.005, 0.01, 0.02, 0.05, 0.08, 1, 1.5, 2, 2.5, 3, 5, 10, 12, 20, 25, 50],
                 'gamma': [0.002, 0.003, 0.004, 0.001, 0.005, 0.01, 0.05, 0.1, 0.2, 0.5],
                 'kernel': ['rbf', 'linear']
     }
-    
-    svr, y_svr = black_box(SVC(random_state=SEED), 'svr_model.sav', param_grid_svc)
+
+    svr, y_svr = black_box(SVC(random_state=SEED), model_name, param_grid_svc)
     surrogate_svr = surrogate(svr)
     rules_svr = extract_rules(surrogate_svr)
     rules_to_txt(rules_svr, 'rules_svr.txt')
 
+def LightGBM(model_name='lightgbm_model.sav'):
+    lgbm, y_lgbm = black_box(lgb.LGBMClassifier(random_state=SEED), model_name, None)
+    surrogate_lgbm = surrogate(lgbm)
+    rules_lgbm = extract_rules(surrogate_lgbm)
+    rules_to_txt(rules_lgbm, 'rules_lgbm.txt')
 
 
+
+
+
+
+'''
+# ========================
+# SVR
+# ========================
+'''
+# # Simple
+# svc(model_name='svr_model.sav')
+
+# Smote
 # X_train, y_train = smote(X_train, y_train)
+# svc(model_name='svr_SMOTE_model.sav')
 
-# svc()
+# Undersampling
+X_train, y_train = under(X_train, y_train)
+svc(model_name='svr_UNDER_model.sav')
