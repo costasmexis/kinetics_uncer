@@ -83,51 +83,67 @@ def catboost():
 
 
 def logreg():
-	# Simple
-	# index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
- #                  & (X_test['sigma_km_product1_CHORS'] <= -1.075)].index
 
- 	# Smote
-	index_GP = X_test[(X_test['Gamma_H2Ot'] > -0.2) 
-                  & (X_test['sigma_km_substrate1_PSERT'] <= 0.999)
-                  & (X_test['sigma_km_substrate_PGL'] > -0.725)
-                  & (X_test['sigma_km_product2_IGPS'] <= 1.59)
-                  & (X_test['sigma_km_substrate2_GK1'] <= 1.581)].index
-
+	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
+                  & (X_test['sigma_km_product1_CHORS'] <= -1.075)].index
 
 	return index_GP
 
 
 def svc():
 
-
-	# index_GP = X_test[(X_test['Gamma_ACN_a_m'] <= -1.137) 
- #                  & (X_test['sigma_km_substrate2_PGCD']<= 0.432 )
- #                  & (X_test['sigma_km_substrate1_GLUDy'] > -1.1)
- #                  & (X_test['Gamma_SSALy'] > -1.158)].index
-
-	
-	# UnderSample
-
-	index_GP = X_test[(X_test['sigma_km_product2_ALCD26xi'] > 1.183) &
-				(X_test['sigma_km_substrate_ACONTa'] <= 1.219)].index
+	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
+                  & (X_test['sigma_km_substrate1_2OXOADPTm'] <= 0.494)
+                  & (X_test['sigma_km_substrate26_LMPD_s_0450_c_1_256'] <= 0.398)
+                  & (X_test['sigma_km_substrate2_GK1'] <= 1.581)].index
 
 	return index_GP              
 
 
-def lightGBM():
-
+def xgbclass():
+	
 	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
                   & (X_test['sigma_km_product1_ICDHxm'] > 0.056)
                   & (X_test['sigma_km_product2_GS'] > -0.802)
                   & (X_test['sigma_km_substrate2_ILETAm'] <= 1.365)
                   & (X_test['sigma_km_substrate1_ADK1'] <= 1.551)].index
+
+	return index_GP              
+
+
+def dectree():
+
+	index_GP = X_test[(X_test['Gamma_HCO3E'] > 1.843) 
+                  & (X_test['sigma_km_substrate2_GAPD'] <= 0.08)].index
+
+	return index_GP              
+
+
+def frst():
 	
+	index_GP = X_test[(X_test['Gamma_GLUDC'] <= -1.277) 
+                  & (X_test['sigma_km_product1_ICDHxm'] > 0.056)
+                  & (X_test['sigma_km_product2_GS'] > -0.802)
+                  & (X_test['sigma_km_substrate2_ILETAm'] <= 1.365)
+                  & (X_test['sigma_km_substrate1_ADK1'] <= 1.551)].index
+
 	return index_GP              
 
 
 '''
 Call main function to print results
 '''
+index_GP = catboost()
+main(index_GP)
+
+index_GP = logreg()
+main(index_GP)
+
 index_GP = svc()
+main(index_GP)
+
+index_GP = xgbclass()
+main(index_GP)
+
+index_GP = dectree()
 main(index_GP)
