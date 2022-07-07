@@ -1,0 +1,29 @@
+Gamma_FBA <= -0.9118080735206604 and sigma_km_product1_ALCD26xi > -0.26216644048690796 and sigma_km_substrate1_ASPTA <= 1.1930022835731506
+sigma_km_substrate2_VALTAim <= 1.3757104873657227 and Gamma_2PHETOHtm <= -1.313053548336029 and sigma_km_substrate1_ADK1 <= 1.5514056086540222 and sigma_km_product1_ICDHxm > -0.03848084434866905 and sigma_km_substrate2_ILETAm <= 1.3645450472831726
+sigma_km_substrate1_ADK1 <= 1.5514056086540222 and Gamma_ORNTA <= -1.0557992458343506 and sigma_km_product1_ICDHxm > 0.05641191266477108 and sigma_km_substrate26_LMPD_s_0450_c_1_256 <= 0.3245595768094063
+sigma_km_substrate1_ADK1 <= 1.5514056086540222 and Gamma_GLUDC <= -1.3166851997375488 and sigma_km_product_HCO3E > -1.57037752866745 and sigma_km_product1_ICDHxm > 0.33645980060100555
+Gamma_TPI <= -0.9544041454792023 and sigma_km_substrate1_r_4235 > -1.1320827305316925 and sigma_km_product1_ICDHxm > 0.33645980060100555
+sigma_km_product44_LMPD_s_0450_c_1_256 > -1.6634396314620972 and sigma_km_product1_MGSA <= 0.029685255140066147 and Gamma_ALATA_L <= -1.1201521158218384
+Gamma_D_LACt2 > 0.06808381713926792 and sigma_km_substrate_ACN_b_m <= 1.5664637684822083 and sigma_km_substrate_ATPtrm > -0.6948021352291107 and sigma_km_product1_ICDHxm > 0.05641191266477108
+Gamma_GLUDC <= -1.3192081451416016 and sigma_km_substrate2_GK1 <= 1.580604612827301 and sigma_km_substrate1_GLUDy > 0.48469942808151245 and sigma_km_product2_ICDHym <= 1.384055495262146
+Gamma_TPI <= -0.9544041454792023 and sigma_km_product1_ACSm <= 0.8434284329414368 and sigma_km_product_E4Ptm > -0.4456776827573776 and sigma_km_product1_ICDHxm <= 0.33645980060100555 and Gamma_PPNDH > -0.9693569242954254
+sigma_km_product1_MGSA > 0.029685255140066147 and Gamma_FBA <= -0.9414854347705841 and Gamma_GLUDC <= -1.3166851997375488 and sigma_km_product2_ICDHym > 0.9193448722362518
+Gamma_GLUDC > -1.3232693672180176 and sigma_km_substrate1_GUAPRT <= -1.6146387457847595
+sigma_km_product_OAAt2m > 0.6397615373134613 and Gamma_D_LACt2 > 0.06808381713926792 and sigma_km_product_E4Ptm > -0.4456776827573776 and sigma_km_product1_ICDHxm <= 0.05641191266477108
+sigma_km_substrate2_MALS <= 1.9134936928749084 and Gamma_FUMm > -1.6767851114273071 and sigma_km_product2_GF6PTA <= -1.543785572052002 and sigma_km_product2_GLUDy <= 1.4721205234527588 and sigma_km_substrate1_GUAPRT > -1.6165519952774048
+sigma_km_product48_LMPD_s_0450_c_1_256 > 0.6349008679389954 and sigma_km_product2_VALTA <= 0.851977527141571 and Gamma_GLUDC > -1.3232693672180176 and sigma_km_substrate1_GUAPRT > -1.6146387457847595 and sigma_km_substrate15_LMPD_s_0450_c_1_256 <= -1.7118169665336609
+sigma_km_substrate1_araphe3 > -1.4586580991744995 and Gamma_PYNP2r <= -0.20780295878648758 and sigma_km_product2_GF6PTA <= -1.526286780834198 and sigma_km_substrate1_HEMEOSm > 1.0625023245811462
+Gamma_GLUDC <= -1.3192081451416016 and sigma_km_substrate1_GLUDy <= 0.48469942808151245 and sigma_km_product3_ICDHxm > 1.3315199613571167
+Gamma_TPI <= -0.9544041454792023 and sigma_km_product_OAAt2m > 0.6397615373134613 and Gamma_ETOHt <= -0.9413745403289795 and sigma_km_product1_ICDHxm <= 0.05641191266477108
+Gamma_GLUDC <= -1.3166851997375488 and sigma_km_product_AMPtrm > 0.7992172837257385 and sigma_km_product1_ICDHxm <= 0.33645980060100555 and sigma_km_product3_LMPD_s_0450_c_1_256 <= -1.170255959033966
+Gamma_H2Ot <= -0.18578755855560303 and sigma_km_product1_ADSL1r <= -0.6461828351020813 and sigma_km_product2_GF6PTA <= -1.526286780834198
+sigma_km_substrate2_ME2m <= -1.4594702124595642 and sigma_km_product2_PRFGS > -1.6459092497825623 and Gamma_ALATA_L > -1.1201521158218384
+Gamma_GLUDC <= -1.3192081451416016 and sigma_km_product2_ASPTAm > 1.670482099056244 and sigma_km_product1_ICDHxm <= 0.05641191266477108
+Gamma_TPI > -0.9544041454792023 and sigma_km_substrate1_VALTAim <= 0.6737050414085388 and sigma_km_substrate2_ASNS1 <= 1.599702775478363 and sigma_km_product2_GF6PTA > -1.526286780834198 and sigma_km_product_GLXt <= -1.8727235794067383
+Gamma_2PHETOHtm <= -1.313053548336029 and sigma_km_substrate2_ASPTAm > 0.9915795922279358 and sigma_km_product1_ICDHxm <= -0.03848084434866905 and sigma_km_product2_LEUTA <= 0.06846332550048828
+Gamma_2PHETOHtm > -1.313053548336029 and Gamma_Htr <= -0.46668054163455963 and sigma_km_product2_GF6PTA <= -1.5117911100387573 and sigma_km_product2_GLUDy <= 1.4721205234527588
+sigma_km_product_OAAt2m <= 0.760296106338501 and sigma_km_substrate1_araphe3 <= -1.4586580991744995 and Gamma_GLUDC > -1.3166851997375488
+sigma_km_substrate_OAAt2m <= 1.1469242572784424 and sigma_km_substrate1_araphe3 > -1.4586580991744995 and Gamma_PYNP2r <= -0.20780295878648758 and sigma_km_product2_GF6PTA > -1.526286780834198 and sigma_km_product_GLXt <= -1.8727235794067383
+Gamma_D_LACt2 <= 0.06808381713926792 and sigma_km_substrate1_araphe3 <= -1.4586580991744995 and sigma_km_product2_GF6PTA > -1.526286780834198 and sigma_km_substrate1_ICDHxm <= 0.6498056352138519
+sigma_km_product_OAAt2m <= 0.721560537815094 and Gamma_CYSt2r > 1.4553343057632446 and sigma_km_product2_ASPTAm > 1.670482099056244 and Gamma_ORNTA <= -1.0557992458343506 and sigma_km_product1_ICDHxm <= 0.05641191266477108
+Gamma_GLUDC <= -1.3166851997375488 and sigma_km_product_AMPtrm <= 0.7992172837257385 and sigma_km_product1_ICDHxm <= 0.33645980060100555 and sigma_km_product3_LMPD_s_0450_c_1_256 <= -1.170255959033966 and sigma_km_substrate34_LMPD_s_0450_c_1_256 > -0.6080877482891083

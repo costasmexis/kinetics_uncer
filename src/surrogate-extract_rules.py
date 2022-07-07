@@ -309,5 +309,6 @@ def xgbclass(model_name='xgb_model.sav'):
 # logreg()
 # svc()
 # dectree()
-forest()
+# forest()
+
 

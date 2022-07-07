@@ -147,3 +147,44 @@ main(index_GP)
 
 index_GP = dectree()
 main(index_GP)
+
+
+
+
+def skoperules():
+
+	index_GP = X_test[(X_test['Gamma_FBA'] <= -0.9118080735206604 ) 
+                  & (X_test['sigma_km_product1_ALCD26xi'] > -0.26216644048690796 )
+                  & (X_test['sigma_km_substrate1_ASPTA'] <= 1.1930022835731506)].index
+
+	return index_GP              
+
+
+index_GP = skoperules()
+main(index_GP)
+
+
+
+
+'''
+
+Number of rows following these rules: 9
+The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 55.5556 %
+The Stability Index on TEST SET is: SI = 19.8473 %
+Number of rows following these rules: 14
+The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 71.4286 %
+The Stability Index on TEST SET is: SI = 19.8473 %
+Number of rows following these rules: 18
+The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 61.1111 %
+The Stability Index on TEST SET is: SI = 19.8473 %
+Number of rows following these rules: 9
+The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 55.5556 %
+The Stability Index on TEST SET is: SI = 19.8473 %
+Number of rows following these rules: 11
+The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 63.6364 %
+The Stability Index on TEST SET is: SI = 19.8473 %
+Number of rows following these rules: 11
+The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 90.9091 %
+The Stability Index on TEST SET is: SI = 19.8473 %
+
+'''

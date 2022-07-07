@@ -1,0 +1,4 @@
+if (Gamma_HCO3E <= 1.843) then class: 0 (proba: 100.0%) | based on 197 samples
+if (Gamma_HCO3E > 1.843) and (sigma_km_substrate2_GAPD <= 0.08) then class: 1 (proba: 100.0%) | based on 22 samples
+if (Gamma_HCO3E > 1.843) and (sigma_km_substrate2_GAPD > 0.08) and (sigma_km_substrate1_GLUDy <= 0.983) then class: 0 (proba: 100.0%) | based on 20 samples
+if (Gamma_HCO3E > 1.843) and (sigma_km_substrate2_GAPD > 0.08) and (sigma_km_substrate1_GLUDy > 0.983) then class: 1 (proba: 100.0%) | based on 2 samples
