@@ -23,9 +23,7 @@ SEED = 42
 
 
 '''
-
 LOAD FILES
-
 '''
 df = pd.read_csv('../data/Parameters_90%stability.csv')
 df = df.drop(['Unnamed: 0'], axis = 1)
@@ -133,18 +131,23 @@ def frst():
 '''
 Call main function to print results
 '''
+print('catboost')
 index_GP = catboost()
 main(index_GP)
 
+print('logreg')
 index_GP = logreg()
 main(index_GP)
 
+print('svc')
 index_GP = svc()
 main(index_GP)
 
+print('xgbclass')
 index_GP = xgbclass()
 main(index_GP)
 
+print('dectree')
 index_GP = dectree()
 main(index_GP)
 
@@ -160,6 +163,7 @@ def skoperules():
 	return index_GP              
 
 
+print('Skope Rules')
 index_GP = skoperules()
 main(index_GP)
 
@@ -167,24 +171,37 @@ main(index_GP)
 
 
 '''
-
+catboost
 Number of rows following these rules: 9
 The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 55.5556 %
 The Stability Index on TEST SET is: SI = 19.8473 %
+
+
+logreg
 Number of rows following these rules: 14
 The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 71.4286 %
 The Stability Index on TEST SET is: SI = 19.8473 %
+
+
+svc
 Number of rows following these rules: 18
 The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 61.1111 %
 The Stability Index on TEST SET is: SI = 19.8473 %
+
+
+xgbclass
 Number of rows following these rules: 9
 The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 55.5556 %
 The Stability Index on TEST SET is: SI = 19.8473 %
+
+
+dectree
 Number of rows following these rules: 11
 The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 63.6364 %
 The Stability Index on TEST SET is: SI = 19.8473 %
+
+
+Skope Rules
 Number of rows following these rules: 11
 The Stability Index on VALIDATION SET (sampled from TEST SET) is: SI = 90.9091 %
-The Stability Index on TEST SET is: SI = 19.8473 %
-
-'''
+The Stability Index on TEST SET is: S'''
