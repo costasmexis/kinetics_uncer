@@ -60,12 +60,14 @@ def inverse_scaling
 '''
 def inverse_scaling(col, elm):
 
+    print(col)
     mu = scaler_df[col].loc['mean']
     sigma = scaler_df[col].loc['std']
 
-    return elm * sigma + mu
+    print(elm * sigma + mu)
 
 
-el = inverse_scaling('Gamma_IPPS', 1.224024)
-print(el)
+inverse_scaling('Gamma_HCO3E', 1.843)
+
+inverse_scaling('sigma_km_substrate2_GAPD',  0.08)
 
