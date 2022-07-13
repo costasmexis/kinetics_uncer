@@ -185,10 +185,15 @@ y_test = pd.DataFrame(y_test)
 class_names = y_train['Stability'].unique().astype(str)
 feature_names = x_train.columns.values
 
-scaler = StandardScaler()
 
+# =====================================
+# Scaler
+# =====================================
+scaler = StandardScaler()
 X_train = scaler.fit_transform(x_train)
 X_test = scaler.transform(x_test)
+pickle.dump(scaler, open('../scaler/scaler.pkl', 'wb'))
+
 
 X_train = pd.DataFrame(X_train, columns=x_train.columns)
 X_train.index = x_train.index
